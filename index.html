@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MidMike | Event Discovery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Option 1: Modern Luxury Stack -->
+    <!-- Fraunces (Variable Serif), Plus Jakarta Sans (Geometric Sans), JetBrains Mono (Tech) -->
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        // Tighter tracking for Fraunces on mobile to avoid sprawling titles
+                        tiempos: ['"Fraunces"', 'serif'], 
+                        inter: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    letterSpacing: {
+                        tighter: '-0.04em',
+                        tight: '-0.02em',
+                        normal: '0em',
+                        wide: '0.02em',
+                        wider: '0.05em',
+                        widest: '0.1em', // Reduced from default Tailwind 0.1em sometimes being too wide
+                    },
+                    colors: {
+                        mid: {
+                            bg: '#191919',
+                            surface: '#151515', 
+                            panel: '#1c1c1c',
+                            glass: 'rgba(255, 255, 255, 0.02)',
+                            border: 'rgba(255, 255, 255, 0.06)',
+                            primary: '#1754D8', 
+                            highlight: '#DBF505',
+                            accent: '#E86644', 
+                            secondary: '#00876D',
+                            success: '#00876D',
+                            destructive: '#bf4040',
+                            text: {
+                                main: '#e2e8f0',
+                                muted: '#94a3b8',
+                                subtle: '#64748b'
+                            }
+                        }
+                    },
+                    boxShadow: {
+                        'glow-highlight': '0 0 20px rgba(219, 245, 5, 0.35)',
+                        'glow-accent': '0 0 20px rgba(232, 102, 68, 0.35)',
+                        'glow-secondary': '0 0 20px rgba(0, 135, 109, 0.35)',
+                        'glow-blue': '0 0 30px rgba(23, 84, 216, 0.5)',
+                        'glass': '0 12px 40px -12px rgba(0, 0, 0, 0.7)',
+                        'glass-deep': '0 30px 60px -15px rgba(0, 0, 0, 0.8)',
+                        'glass-inset': 'inset 0 0 0 1px rgba(255, 255, 255, 0.05)',
+                        'soft-xl': '0 20px 40px -10px rgba(0, 0, 0, 0.05)',
+                    },
+                    animation: {
+                        'cinematic-fade': 'fadeIn 1s cubic-bezier(0.22, 1, 0.36, 1) forwards',
+                        'ambient-slow': 'ambientDrift 60s ease-in-out infinite',
+                        'ambient-fast': 'ambientDrift 40s ease-in-out infinite reverse',
+                        'spin-slow': 'spin 12s linear infinite',
+                        'shimmer-fast': 'shimmer 2s infinite linear',
+                        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        ambientDrift: {
+                            '0%, 100%': { transform: 'translate3d(0, 0, 0) scale(1)' },
+                            '33%': { transform: 'translate3d(5vw, 5vh, 0) scale(1.1)' },
+                            '66%': { transform: 'translate3d(-5vw, 10vh, 0) scale(0.9)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 10px rgba(23, 84, 216, 0.3)' },
+                            '50%': { boxShadow: '0 0 35px rgba(23, 84, 216, 0.7)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+          :root {
+            --card-bg: #ffffff;
+          }
+          .dark {
+            --card-bg: #191919;
+          }
+
+          html {
+            @apply bg-[#F2F4F7] dark:bg-[#191919] transition-colors duration-500;
+            scroll-behavior: smooth;
+          }
+          body {
+            /* Darker slate for better contrast in light mode */
+            @apply text-slate-800 dark:text-mid-text-main antialiased overflow-x-hidden m-0 p-0 font-inter font-normal bg-[#F2F4F7] dark:bg-[#191919] transition-colors duration-500;
+            font-feature-settings: "cv11", "ss01", "kern";
+          }
+          
+          /* Typography Utilities */
+          h1, h2, h3, h4, h5, h6 {
+             @apply tracking-tight; 
+          }
+
+          /* Global Interactive States */
+          button, a[role="button"], .interactive {
+             @apply transition-transform duration-200 ease-out active:scale-[0.97] hover:scale-[1.02];
+          }
+        }
+
+        @property --gradient-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+        @property --gradient-angle-offset { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+        @property --gradient-percent { syntax: "<percentage>"; initial-value: 20%; inherits: false; }
+        @property --gradient-shine { syntax: "<color>"; initial-value: #ffffff; inherits: false; }
+
+        @layer components {
+          .premium-shiny-container {
+            --gradient-angle: 0deg;
+            --gradient-angle-offset: 0deg;
+            --gradient-percent: 20%;
+            --gradient-shine: #ffffff;
+            position: relative;
+            background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, 
+                        conic-gradient(
+                            from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
+                            transparent 0%, 
+                            #E86644 5%, 
+                            #DBF505 15%, 
+                            #00876D 25%, 
+                            transparent 35%, 
+                            transparent 100%
+                        ) border-box;
+            border: 1.5px solid transparent;
+            isolation: isolate;
+            animation: border-spin 6s linear infinite;
+          }
+
+          @keyframes border-spin {
+            to { --gradient-angle: 360deg; }
+          }
+
+          .premium-shiny-container::before,
+          .premium-shiny-container::after {
+            display: none;
+          }
+
+          #sidebar {
+            @apply fixed top-0 left-0 h-screen transition-all duration-500;
+          }
+
+          .main-content {
+            @apply transition-all duration-300 ease-in-out relative min-h-screen flex flex-col m-0;
+          }
+
+          .cta-shimmer {
+            background: linear-gradient(90deg, #1754D8, #2d6ff7, #1754D8);
+            background-size: 200% 100%;
+            @apply animate-shimmer-fast;
+          }
+        }
+
+        .bg-grain {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -10;
+            opacity: 0.01;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(255,255,255,0.15);
+        }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { 
+            background: rgba(100, 116, 139, 0.2); 
+            border-radius: 10px; 
+        }
+        .dark ::-webkit-scrollbar-thumb { 
+            background: rgba(255,255,255,0.08); 
+        }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.561.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div id="root"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
